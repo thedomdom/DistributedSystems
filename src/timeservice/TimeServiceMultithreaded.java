@@ -15,23 +15,20 @@ public class TimeServiceMultithreaded {
         new TimeServiceMultithreaded().startServer();
     }
 
-    public void startServer() {
+    private void startServer() {
         final ExecutorService clientProcessingPool = Executors.newFixedThreadPool(10);
 
-        Runnable serverTask = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ServerSocket serverSocket = new ServerSocket(75);
-                    System.out.println("Waiting for clients to connect...");
-                    while (!serverSocket.isClosed()) {
-                        Socket clientSocket = serverSocket.accept();
-                        clientProcessingPool.submit(new ClientTask(clientSocket));
-                    }
-                } catch (IOException e) {
-                    System.err.println("Unable to process client request");
-                    e.printStackTrace();
+        Runnable serverTask = () -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(75);
+                System.out.println("Waiting for clients to connect...");
+                while (!serverSocket.isClosed()) {
+                    Socket clientSocket = serverSocket.accept();
+                    clientProcessingPool.submit(new ClientTask(clientSocket));
                 }
+            } catch (IOException e) {
+                System.err.println("Unable to process client request");
+                e.printStackTrace();
             }
         };
         Thread serverThread = new Thread(serverTask);
