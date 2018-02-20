@@ -16,4 +16,8 @@ public interface TimeService_Interface extends Remote {
     Event getNextEvent() throws RemoteException;
 
     Vector<Event> getFutureEvents() throws RemoteException;
+
+    void addEventListener(EventListener el) throws RemoteException;
+
+    void removeEventListener(EventListener el) throws RemoteException;
 }
