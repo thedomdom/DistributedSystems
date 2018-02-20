@@ -1,22 +1,13 @@
 package timeservicermi;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Date;
 
-public class Event {
+interface Event extends Remote {
 
-    private Date date;
-    private String description;
+    Date getDate() throws RemoteException;
 
-    public Event(Date date, String description) {
-        this.date = date;
-        this.description = description;
-    }
+    void print() throws RemoteException;
 
-    public Date getDate() {
-        return date;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

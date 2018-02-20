@@ -1,7 +1,10 @@
 package timeservicermi;
 
-public interface EventListener {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-    void handleEvent(Event e);
+public interface EventListener extends Remote{
+
+    void handleEvent(Event e) throws RemoteException;
 
 }
