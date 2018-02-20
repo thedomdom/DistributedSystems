@@ -1,13 +1,17 @@
 package timeservicermi;
 
-import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Date;
 
-public class TimeService implements Remote {
+public class TimeService extends UnicastRemoteObject implements TimeService_Interface {
 
-    Date getDateAndTime() {
+    private TimeService() throws RemoteException {
+    }
+
+    public Date getDateAndTime() {
         return new Date();
     }
 
